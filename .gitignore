@@ -1,0 +1,36 @@
+# --- Environment Variables ---
+.env
+
+# --- Virtual Environments ---
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+build/
+dist/
+*.egg-info/
+*.egg
+
+# --- IDE / Editor ---
+.vscode/
+.idea/
+
+# --- Operating System ---
+.DS_Store
+Thumbs.db
+
+# --- Jupyter Notebook ---
+.ipynb_checkpoints
+
+# --- Local Output Files ---
+*.log
+*.out
+report.md
