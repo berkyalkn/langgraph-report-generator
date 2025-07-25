@@ -2,7 +2,7 @@
 
 # AI-Powered Report Generator using LangChain, LangGraph & Groq
 
-This project demonstrates a **fully automated research report generator** powered by **LLMs**, using **Groq’s LLama 3**, structured orchestration with **LangGraph**, and real-time search via **Tavily**. It can dynamically plan, research, write, and synthesize a complete markdown-based report on any given topic.
+This project demonstrates a fully automated research report generator powered by LLMs, using Groq’s Llama 3, structured orchestration with LangGraph, and real-time search via Tavily. It can dynamically plan, research, write, critique, and synthesize a complete report, delivering it as both **Markdown and a styled HTML file**.
 
 ---
 
@@ -19,6 +19,8 @@ This project generates a structured, high-quality report using a sophisticated A
     -   **Critic** – Reviews the draft for quality, accuracy, and depth. It decides if a revision is necessary.
 3.  **Self-Correction Cycle** – If the Critic agent requests a revision, the draft is sent back to the Writer with constructive feedback. This loop continues until the section meets quality standards or a maximum revision limit is reached.
 4.  **Synthesizer** – Once all sections are approved, they are compiled into the final Markdown report.
+5. **HTML Conversion:** The final Markdown report is converted into a beautifully styled HTML file with embedded CSS, ready for viewing in any web browser.
+
 
 This advanced flow, featuring conditional edges and cycles, showcases a more robust and autonomous agentic system.
 
@@ -40,6 +42,8 @@ This advanced flow, featuring conditional edges and cycles, showcases a more rob
 
 -   **Markdown Output:** The final report is delivered as a standard Markdown file.
 
+-  **Styled HTML Output:** The final report is also automatically converted into a clean, modern, and readable HTML file for professional presentation.
+
 ---
 
 ## Tech Stack
@@ -52,6 +56,7 @@ This advanced flow, featuring conditional edges and cycles, showcases a more rob
 | **[Tavily API](https://docs.tavily.com/)**      | Real-time web search |
 | **Pydantic**      | Input/output validation and data structuring|
 | **Python 3.10+** | Language and typing support |
+| **markdown2** | Markdown to HTML conversion|
 
 --- 
 
@@ -74,6 +79,7 @@ The system operates as a sophisticated, multi-step agentic workflow that process
 
 4. **Synthesis:** Once all sections have been individually written and approved through the critique cycle, the Synthesizer node compiles them into the final, coherent report in Markdown format.
 
+5. **HTML Conversion:** The final Markdown report is converted into a beautifully styled HTML file with embedded CSS, ready for viewing in any web browser.
 ---
 
 ## Architecture
@@ -92,7 +98,8 @@ graph TD
 
     SectionCollector -- "More Sections Remain" --> Researcher
     SectionCollector -- "All Sections Done" --> Synthesizer
-    Synthesizer --> END
+    Synthesizer --> HtmlConverter
+    HtmlConverter --> END
 ```
 
 Each node is defined as a LangGraph function node and passes state between each step.
@@ -158,3 +165,5 @@ initial_state = {
 final_state = app.invoke(initial_state)
 
 ```
+
+After running the script, you will find `report.html` in your project directory.
